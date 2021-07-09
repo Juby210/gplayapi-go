@@ -44,7 +44,7 @@ func (client *GooglePlayClient) checkIn(req *gpproto.AndroidCheckinRequest) (res
 	client.setAuthHeaders(r)
 	r.Header.Set("Content-Type", "application/x-protobuffer")
 	r.Header.Set("Host", "android.clients.google.com")
-	b, err = doReq(r)
+	b, _, err = doReq(r)
 	if err != nil {
 		return
 	}
@@ -76,7 +76,7 @@ func (client *GooglePlayClient) GenerateGPToken() (string, error) {
 
 	r, _ := http.NewRequest("POST", UrlAuth+"?"+params.Encode(), nil)
 	client.setAuthHeaders(r)
-	b, err := doReq(r)
+	b, _, err := doReq(r)
 	if err != nil {
 		return "", nil
 	}

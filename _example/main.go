@@ -21,6 +21,7 @@ func main() {
 		}
 		client.SaveSession(sessionFile)
 	}
+	client.SessionFile = sessionFile
 	app, err := client.GetAppDetails("com.discord")
 	if err != nil {
 		log.Fatal(err)

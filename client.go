@@ -2,6 +2,7 @@ package gplayapi
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"os"
 )
@@ -9,9 +10,16 @@ import (
 type GooglePlayClient struct {
 	AuthData   *AuthData
 	DeviceInfo *DeviceInfo
+
+	// SessionFile if SessionFile is set then session will be saved to it after modification
+	SessionFile string
 }
 
-var httpClient = &http.Client{}
+var (
+	GPTokenExpired = errors.New("unauthorized, gp token expired")
+
+	httpClient = &http.Client{}
+)
 
 func NewClient(email, aasToken string) (*GooglePlayClient, error) {
 	return NewClientWithDeviceInfo(email, aasToken, Pixel3a)
