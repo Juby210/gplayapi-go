@@ -9,6 +9,8 @@ import (
 	"github.com/Juby210/gplayapi-go/gpproto"
 )
 
+var ErrNilPayload = errors.New("got nil payload from google play")
+
 func (client *GooglePlayClient) GetBuyResponse(packageName string, version int) (*gpproto.BuyResponse, error) {
 	params := &url.Values{}
 	params.Set("ot", "1")
@@ -19,6 +21,9 @@ func (client *GooglePlayClient) GetBuyResponse(packageName string, version int) 
 	payload, err := client.doAuthedReq(r)
 	if err != nil {
 		return nil, err
+	}
+	if payload == nil {
+		return nil, ErrNilPayload
 	}
 	return payload.BuyResponse, nil
 }
@@ -34,6 +39,9 @@ func (client *GooglePlayClient) GetDeliveryResponse(packageName string, version 
 	if err != nil {
 		return nil, err
 	}
+	if payload == nil {
+		return nil, ErrNilPayload
+	}
 	return payload.DeliveryResponse, nil
 }
 
@@ -44,6 +52,11 @@ func (client *GooglePlayClient) Purchase(packageName string, version int) (*gppr
 			return nil, err
 		}
 		version = app.VersionCode
+	}
+
+	_, err := client.GetBuyResponse(packageName, version)
+	if err != nil {
+		return nil, err
 	}
 
 	res, err := client.GetDeliveryResponse(packageName, version)
