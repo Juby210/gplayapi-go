@@ -143,6 +143,7 @@ func (i *DeviceInfo) GetDeviceConfigProto() *gpproto.DeviceConfigurationProto {
 		GlEsVersion:            &i.GLVersion,
 		SystemSharedLibrary:    i.SharedLibraries,
 		SystemAvailableFeature: i.Features,
+		NativePlatform:         i.Platforms,
 		ScreenWidth:            &i.Screen.Width,
 		ScreenHeight:           &i.Screen.Height,
 		SystemSupportedLocale:  i.Locales,
