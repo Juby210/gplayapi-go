@@ -67,6 +67,9 @@ func (client *GooglePlayClient) GetAppDetails(packageName string) (*App, error) 
 	if err != nil {
 		return nil, err
 	}
+	if payload == nil {
+		return nil, ErrNilPayload
+	}
 	return buildApp(payload.DetailsResponse), nil
 }
 

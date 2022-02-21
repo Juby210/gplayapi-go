@@ -1,5 +1,7 @@
 package gplayapi
 
+import "errors"
+
 //goland:noinspection GoUnusedConst
 const (
 	ImageTypeAppScreenshot = iota + 1
@@ -20,3 +22,5 @@ const (
 	UrlTosAccept          = UrlFdfe + "/acceptTos"
 	UrlUploadDeviceConfig = UrlFdfe + "/uploadDeviceConfig"
 )
+
+var ErrNilPayload = errors.New("got nil payload from google play")
