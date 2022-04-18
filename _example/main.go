@@ -7,7 +7,7 @@ import (
 	"github.com/Juby210/gplayapi-go"
 )
 
-const sessionFile = "_session.json"
+const sessionFile = "_session.arm64_v8a.json"
 
 func main() {
 	client, err := gplayapi.LoadSession(sessionFile)
@@ -32,4 +32,9 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(deliveryData.GetDownloadUrl())
+	if split := deliveryData.SplitDeliveryData; split != nil {
+		for _, s := range split {
+			fmt.Printf("%s %s\n", s.GetName(), s.GetDownloadUrl())
+		}
+	}
 }

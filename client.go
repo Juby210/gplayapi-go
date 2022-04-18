@@ -21,6 +21,7 @@ var (
 	httpClient = &http.Client{}
 )
 
+// NewClient makes new client with Pixel3a config
 func NewClient(email, aasToken string) (*GooglePlayClient, error) {
 	return NewClientWithDeviceInfo(email, aasToken, Pixel3a)
 }
