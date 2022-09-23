@@ -52,7 +52,7 @@ func (client *GooglePlayClient) Purchase(packageName string, version int) (*gppr
 		version = app.VersionCode
 	}
 
-	_, _ := client.GetBuyResponse(packageName, version)
+	_, _ = client.GetBuyResponse(packageName, version)
 
 	res, err := client.GetDeliveryResponse(packageName, version)
 	if err != nil {
