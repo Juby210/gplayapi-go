@@ -9,6 +9,8 @@ import (
 	"github.com/Juby210/gplayapi-go/gpproto"
 )
 
+var ErrMissingAppDeliveryData = errors.New("buy response is missing AppDeliveryData")
+
 func (client *GooglePlayClient) GetBuyResponse(packageName string, version int) (*gpproto.BuyResponse, error) {
 	params := &url.Values{}
 	params.Set("ot", "1")
@@ -61,7 +63,7 @@ func (client *GooglePlayClient) Purchase(packageName string, version int) (*gppr
 
 	appDeliveryData := res.AppDeliveryData
 	if appDeliveryData == nil {
-		return nil, errors.New("buy response is missing AppDeliveryData")
+		return nil, ErrMissingAppDeliveryData
 	}
 	return appDeliveryData, nil
 }
